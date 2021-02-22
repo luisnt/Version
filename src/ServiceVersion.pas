@@ -39,10 +39,11 @@ type
 
 function Version: iVersion;
 
+function VersionFile(const aFilename: string): string;
 function isOutdated(const aNewVersion: string): boolean; overload;
-function isOutdated(const aNewVersion: string; aInstaledVersion: string): boolean; overload;
+function isOutdated(const aNewVersion: string; aOldVersion: string): boolean; overload;
 function isOutdatedFile(const aNewFilename: string): boolean; overload;
-function isOutdatedFile(const aNewFilename: string; aInstaledFileName: string): boolean; overload;
+function isOutdatedFile(const aNewFilename: string; aOldFileName: string): boolean; overload;
 
 implementation
 
@@ -52,6 +53,15 @@ uses
 function Version: iVersion;
 begin
   Result := TVersion.New;
+end;
+
+function VersionFile(const aFilename: string): string;
+begin
+  with Version do
+    begin
+      Filename := aFilename;
+      Result := Value;
+    end;
 end;
 
 function isOutdated(const aNewVersion: string): boolean;
@@ -77,12 +87,12 @@ begin
     end;
     Result := (LMajor or LMinor or LMaintenance or LBuild);
   finally
-    LNewVersion.Free;
-    LInstaledVersion.Free;
+    LNewVersion.free;
+    LInstaledVersion.free;
   end;
 end;
 
-function isOutdated(const aNewVersion: string; aInstaledVersion: string): boolean;
+function isOutdated(const aNewVersion: string; aOldVersion: string): boolean;
 var
   LMajor          : boolean;
   LMinor          : boolean;
@@ -97,7 +107,7 @@ begin
     LNewVersion.Value := aNewVersion;
     with LInstaledVersion do
     begin
-      Value        := aInstaledVersion;
+      Value        := aOldVersion;
       LMajor       := (Major < LNewVersion.Major);
       LMinor       := ((Major = LNewVersion.Major) and (Minor < LNewVersion.Minor));
       LMaintenance := ((Minor = LNewVersion.Minor) and (Maintenance < LNewVersion.Maintenance));
@@ -105,8 +115,8 @@ begin
     end;
     Result := (LMajor or LMinor or LMaintenance or LBuild);
   finally
-    LNewVersion.Free;
-    LInstaledVersion.Free;
+    LNewVersion.free;
+    LInstaledVersion.free;
   end;
 end;
 
@@ -133,12 +143,12 @@ begin
     end;
     Result := (LMajor or LMinor or LMaintenance or LBuild);
   finally
-    LNewVersion.Free;
-    LInstaledVersion.Free;
+    LNewVersion.free;
+    LInstaledVersion.free;
   end;
 end;
 
-function isOutdatedFile(const aNewFilename: string; aInstaledFileName: string): boolean;
+function isOutdatedFile(const aNewFilename: string; aOldFileName: string): boolean;
 var
   LMajor          : boolean;
   LMinor          : boolean;
@@ -153,7 +163,7 @@ begin
   try
     with LInstaledVersion do
     begin
-      Filename     := aInstaledFileName;
+      Filename     := aOldFileName;
       LMajor       := (Major < LNewVersion.Major);
       LMinor       := ((Major = LNewVersion.Major) and (Minor < LNewVersion.Minor));
       LMaintenance := ((Minor = LNewVersion.Minor) and (Maintenance < LNewVersion.Maintenance));
@@ -161,8 +171,8 @@ begin
     end;
     Result := (LMajor or LMinor or LMaintenance or LBuild);
   finally
-    LNewVersion.Free;
-    LInstaledVersion.Free;
+    LNewVersion.free;
+    LInstaledVersion.free;
   end;
 end;
 
@@ -175,7 +185,7 @@ end;
 
 constructor TVersion.Create;
 begin
-
+  Filename := ParamStr(0);
 end;
 
 destructor TVersion.Destroy;
@@ -234,7 +244,7 @@ begin
       FMaintenance  := Strings[MAINTENANCE_PART].ToInteger;
       FBuild        := Strings[BUILD_PART].ToInteger;
     finally
-      Free;
+      free;
     end;
 end;
 

@@ -1,12 +1,10 @@
-## Version Service
->#### Version - Service to read version data of App
+program VersionTest;
 
-### Install
-> Boss install luisnt/Version
+{$APPTYPE CONSOLE}
 
-#### Sample use
-```delphi
- 
+{$R *.res}
+
+
 uses
   System.SysUtils,
   ServiceVersion in '..\src\ServiceVersion.pas';
@@ -63,39 +61,3 @@ begin
   end;
 
 end.
-
-```
-
-````code
-Read from ParamStr(0)
-          Filename: C:\Users\Luis\Projects\Boss\Version\sample\Win32\Release\VersionTest.exe
-           Version: 1.0.7723.35592
-
-          Filename: VersionTestNew.exe
-           Version: 1.0.7723.33289
-
-          Filename: VersionTestOld.exe
-           Version: 1.0.7723.33213
-
-Check isOutdated(New, Old)
-               NEW: 1.0.7723.33289
-               OLD: 1.0.7723.33213
-            Result: True
-
-Check isOutdated(VersionTestNew.exe, VersionTestOld.exe)
-VersionTestNew.exe: 1.0.7723.33289
-VersionTestOld.exe: 1.0.7723.33213
-            Result: True
-
-INVERTER TEST
-
-Check isOutdated(Old, New)
-               OLD: 1.0.7723.33213
-               NEW: 1.0.7723.33289
-            Result: False
-
-Check isOutdated(VersionTestOld.exe, VersionTestNew.exe)
-VersionTestOld.exe: 1.0.7723.33213
-VersionTestNew.exe: 1.0.7723.33289
-            Result: False
-````
