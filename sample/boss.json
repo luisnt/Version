@@ -1,8 +1,8 @@
 {
 	"name": "sample",
-	"description": "",
+	"description": "Test - Version - Service for read version on Apps",
 	"version": "1.0.0",
-	"homepage": "",
+	"homepage": "https://github.com/luisnt/Version",
 	"mainsrc": "./",
 	"projects": [],
 	"dependencies": {

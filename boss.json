@@ -1,8 +1,8 @@
 {
-	"name": "Inifile",
-	"description": "Inifile - Service to manager inifiles data",
-	"version": "1.0.0",
-	"homepage": "https://github.com/luisnt/Inifile",
+	"name": "Version",
+	"description": "Version - Service for read version on Apps",
+	"version": "1.0.1",
+	"homepage": "https://github.com/luisnt/Version",
 	"mainsrc": "./",
 	"projects": [],
 	"dependencies": {}
