@@ -6,12 +6,9 @@ program VersionTest;
 
 
 uses
-  System.SysUtils,
-  ServiceVersion in '..\src\ServiceVersion.pas';
-
-const
-  NEW_VER = '1.0.2.50';
-  INS_VER = '1.0.1.100';
+  System.SysUtils
+    , ServiceVersion
+    ;
 
 var
   LNew: string;
